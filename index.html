@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AETHER Pro | Mind-blowing. Head-turning.</title>
+  <meta name="description"
+    content="Experience the next evolution of laptop architecture. AETHER Pro features the revolutionary Neural Chip, Liquid Retina XDR display, and advanced thermal performance.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --obsidian: #0A0A0B;
+      --apple-gray: #86868b;
+      --white-90: rgba(255, 255, 255, 0.9);
+      --white-80: rgba(255, 255, 255, 0.8);
+      --white-10: rgba(255, 255, 255, 0.1);
+      --white-05: rgba(255, 255, 255, 0.05);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--obsidian);
+      color: var(--white-90);
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Typography */
+    .font-display {
+      font-family: 'Outfit', system-ui, sans-serif;
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.7) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-text {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    /* ============ HERO SECTION ============ */
+    .hero-container {
+      height: 400vh;
+      position: relative;
+    }
+
+    .hero-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+    }
+
+    /* Vignette overlay */
+    .vignette {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 0%, rgba(10, 10, 11, 0.3) 70%, rgba(10, 10, 11, 0.8) 100%);
+    }
+
+    /* Hero text overlays */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .hero-overlay.visible {
+      opacity: 1;
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 10vw, 8rem);
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.75rem);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(10px);
+      }
+    }
+
+    .scroll-indicator span {
+      font-size: 0.875rem;
+      color: var(--apple-gray);
+      margin-bottom: 0.5rem;
+    }
+
+    .scroll-indicator svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      color: var(--apple-gray);
+    }
+
+    /* Loading screen */
+    .loading-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: var(--obsidian);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loading-logo {
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+
+    .loading-bar-container {
+      width: 16rem;
+      height: 4px;
+      background: var(--white-10);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .loading-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
+      border-radius: 2px;
+      transition: width 0.1s ease;
+      width: 0%;
+    }
+
+    .loading-text {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: var(--apple-gray);
+    }
+
+    /* ============ BENTO GRID SECTION ============ */
+    .bento-section {
+      padding: 8rem 1.5rem;
+      background: var(--obsidian);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .section-title {
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--apple-gray);
+      max-width: 40rem;
+      margin: 0 auto;
+    }
+
+    .bento-grid {
+      max-width: 80rem;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .bento-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .bento-card {
+      background: var(--white-05);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--white-10);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.3s ease;
+    }
+
+    .bento-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .bento-card:hover {
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+    }
+
+    .bento-card.wide {
+      grid-column: span 1;
+    }
+
+    @media (min-width: 768px) {
+      .bento-card.wide {
+        grid-column: span 2;
+      }
+    }
+
+    .card-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #818cf8;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .card-desc {
+      color: var(--apple-gray);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .card-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 150px;
+    }
+
+    /* Neural chip visual */
+    .chip-container {
+      position: relative;
+      width: 180px;
+      height: 180px;
+    }
+
+    .chip-base {
+      position: absolute;
+      inset: 1rem;
+      background: linear-gradient(135deg, #3f3f46, #27272a);
+      border-radius: 1rem;
+      border: 1px solid var(--white-10);
+      overflow: hidden;
+    }
+
+    .chip-shimmer {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      background-size: 400% 100%;
+      animation: shimmer 2.5s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+
+      0%,
+      100% {
+        background-position: 200% 0;
+      }
+
+      50% {
+        background-position: -200% 0;
+      }
+    }
+
+    .chip-core {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+      border-radius: 0.5rem;
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+      }
+
+      50% {
+        box-shadow: 0 0 40px rgba(168, 85, 247, 0.7);
+      }
+    }
+
+    /* Display reveal visual */
+    .display-container {
+      position: relative;
+      width: 100%;
+      max-width: 300px;
+      aspect-ratio: 16/9;
+      border-radius: 0.75rem;
+      overflow: hidden;
+    }
+
+    .display-dark {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #27272a, #0a0a0b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.3);
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    .display-bright {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #fff, #e5e5e5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-weight: 700;
+      font-size: 1.25rem;
+      clip-path: inset(0 100% 0 0);
+      transition: clip-path 1.5s ease-in-out;
+    }
+
+    .display-bright.revealed {
+      clip-path: inset(0 0% 0 0);
+    }
+
+    /* Thermal visual */
+    .thermal-svg {
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .airflow-line {
+      stroke-dasharray: 20 30;
+      animation: airflow 1.5s linear infinite;
+    }
+
+    @keyframes airflow {
+      0% {
+        stroke-dashoffset: 0;
+      }
+
+      100% {
+        stroke-dashoffset: -50;
+      }
+    }
+
+    /* Battery visual */
+    .battery-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .battery-icon {
+      position: relative;
+      width: 120px;
+      height: 50px;
+    }
+
+    .battery-body {
+      position: absolute;
+      inset: 0;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+
+    .battery-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #22c55e, #4ade80);
+      width: 0%;
+      transition: width 2s ease-out;
+    }
+
+    .battery-fill.animated {
+      width: 100%;
+    }
+
+    .battery-tip {
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .battery-text {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .battery-label {
+      font-size: 0.875rem;
+      color: var(--apple-gray);
+    }
+
+    /* ============ PERFORMANCE SECTION ============ */
+    .performance-section {
+      padding: 8rem 1.5rem;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .performance-section::before {
+      content: '';
+      position: absolute;
+      top: 25%;
+      left: 0;
+      width: 400px;
+      height: 400px;
+      background: rgba(99, 102, 241, 0.1);
+      border-radius: 50%;
+      filter: blur(150px);
+      pointer-events: none;
+    }
+
+    .performance-section::after {
+      content: '';
+      position: absolute;
+      bottom: 25%;
+      right: 0;
+      width: 400px;
+      height: 400px;
+      background: rgba(168, 85, 247, 0.1);
+      border-radius: 50%;
+      filter: blur(150px);
+      pointer-events: none;
+    }
+
+    .performance-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      max-width: 60rem;
+      margin: 0 auto 5rem;
+    }
+
+    @media (min-width: 768px) {
+      .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .stat-card {
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .stat-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stat-value {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: var(--apple-gray);
+    }
+
+    .chart-container {
+      max-width: 50rem;
+      margin: 0 auto;
+    }
+
+    .chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--apple-gray);
+    }
+
+    .legend-color {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 0.25rem;
+    }
+
+    .chart-category {
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .chart-category.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .category-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .bar-label {
+      width: 100px;
+      font-size: 0.875rem;
+      color: var(--apple-gray);
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 12px;
+      background: var(--white-05);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      width: 0%;
+      transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .bar-fill.aether {
+      background: linear-gradient(90deg, #6366f1, #a855f7);
+    }
+
+    .bar-fill.prev {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .bar-fill.competitor {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* ============ CONNECTIVITY SECTION ============ */
+    .connectivity-section {
+      padding: 8rem 1.5rem;
+      background: var(--obsidian);
+    }
+
+    .laptop-visual {
+      max-width: 50rem;
+      margin: 0 auto 4rem;
+      position: relative;
+    }
+
+    .laptop-svg {
+      width: 100%;
+      opacity: 0;
+      transform: translateX(-100px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .laptop-svg.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .port-labels {
+      position: absolute;
+      inset: 0;
+    }
+
+    .port-label {
+      position: absolute;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .port-label.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .port-line {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, #818cf8, transparent);
+      margin-top: 12px;
+    }
+
+    .port-info {
+      background: var(--white-05);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--white-10);
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+    }
+
+    .port-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .port-desc {
+      font-size: 0.75rem;
+      color: var(--apple-gray);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 5rem 0;
+    }
+
+    .cta-title {
+      font-size: clamp(2rem, 6vw, 4rem);
+      margin-bottom: 1rem;
+    }
+
+    .cta-subtitle {
+      font-size: 1.125rem;
+      color: var(--apple-gray);
+      margin-bottom: 2.5rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    @media (min-width: 640px) {
+      .cta-buttons {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      font-size: 1.125rem;
+      font-weight: 600;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: #fff;
+      color: #000;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .btn-secondary {
+      background: var(--white-10);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* ============ FOOTER ============ */
+    .footer {
+      padding: 4rem 1.5rem 2rem;
+      border-top: 1px solid var(--white-10);
+    }
+
+    .footer-grid {
+      max-width: 80rem;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (min-width: 768px) {
+      .footer-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .footer-column h4 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-column a {
+      color: var(--apple-gray);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-column a:hover {
+      color: #fff;
+    }
+
+    .footer-bottom {
+      max-width: 80rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--white-05);
+    }
+
+    @media (min-width: 768px) {
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    .footer-logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .footer-copyright {
+      font-size: 0.875rem;
+      color: var(--apple-gray);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-logo font-display text-gradient">AETHER</div>
+    <div class="loading-bar-container">
+      <div class="loading-bar" id="loading-bar"></div>
+    </div>
+    <div class="loading-text">Loading experience... <span id="loading-percent">0</span>%</div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero-container" id="hero-container">
+    <div class="hero-sticky">
+      <canvas id="hero-canvas"></canvas>
+
+      <!-- Phase 1: The Lift -->
+      <div class="hero-overlay" id="overlay-lift">
+        <h1 class="hero-title font-display hero-text text-gradient">AETHER Pro</h1>
+        <p class="hero-subtitle">
+          <span style="color: var(--white-80)">Mind-blowing.</span>
+          <span style="color: var(--apple-gray)">Head-turning.</span>
+        </p>
+        <div class="scroll-indicator">
+          <span>Scroll to explore</span>
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Phase 2: The Reveal -->
+      <div class="hero-overlay" id="overlay-reveal">
+        <h2 class="hero-title font-display hero-text">
+          <span class="text-gradient">Architecture</span><br>
+          <span style="color: var(--apple-gray)">evolved.</span>
+        </h2>
+        <p class="hero-subtitle" style="color: var(--apple-gray); max-width: 36rem;">
+          Every component. Reimagined. Every system. Revolutionized.
+        </p>
+      </div>
+
+      <!-- Phase 3: The Reassembly -->
+      <div class="hero-overlay" id="overlay-reassembly">
+        <h2 class="hero-title font-display hero-text">
+          <span style="color: var(--white-90)">Precision</span><br>
+          <span
+            style="background: linear-gradient(90deg, #818cf8, #a855f7, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">perfected.</span>
+        </h2>
+      </div>
+
+      <div class="vignette"></div>
+    </div>
+  </section>
+
+  <!-- Bento Grid Section -->
+  <section class="bento-section" id="bento-section">
+    <div class="section-header">
+      <h2 class="section-title font-display hero-text">
+        <span class="text-gradient">Pro</span> features.<br>
+        <span style="color: var(--apple-gray)">Pro performance.</span>
+      </h2>
+      <p class="section-subtitle">
+        Every component is designed to push the boundaries of what's possible.
+      </p>
+    </div>
+
+    <div class="bento-grid">
+      <!-- Neural Chip Card -->
+      <div class="bento-card wide">
+        <div class="card-label">The Brain</div>
+        <h3 class="card-title font-display text-gradient">Neural Engine</h3>
+        <p class="card-desc">16-core Neural Engine with 15.8 trillion operations per second. AI that thinks at the speed
+          of light.</p>
+        <div class="card-visual">
+          <div class="chip-container">
+            <div class="chip-base">
+              <div class="chip-shimmer"></div>
+            </div>
+            <div class="chip-core"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Display Card -->
+      <div class="bento-card">
+        <div class="card-label">The Vision</div>
+        <h3 class="card-title font-display text-gradient">Liquid Retina XDR</h3>
+        <p class="card-desc">Extreme Dynamic Range. 1,000,000:1 contrast. Over a billion colors.</p>
+        <div class="card-visual">
+          <div class="display-container" id="display-visual">
+            <div class="display-dark">Standard</div>
+            <div class="display-bright" id="display-bright">XDR</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thermal Card -->
+      <div class="bento-card">
+        <div class="card-label">Cool & Quiet</div>
+        <h3 class="card-title font-display text-gradient">Advanced Thermal</h3>
+        <p class="card-desc">Whisper-quiet operation even under intense workloads.</p>
+        <div class="card-visual">
+          <svg class="thermal-svg" viewBox="0 0 200 150">
+            <rect x="30" y="50" width="140" height="80" rx="8" fill="none" stroke="rgba(255,255,255,0.2)"
+              stroke-width="1" />
+            <rect x="85" y="75" width="30" height="30" rx="4" fill="url(#heatGradient)">
+              <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite" />
+            </rect>
+            <path d="M 40 90 Q 60 85 85 87" class="airflow-line" fill="none" stroke="rgba(99, 200, 255, 0.4)"
+              stroke-width="2" stroke-linecap="round" />
+            <path d="M 48 90 Q 68 82 87 84" class="airflow-line" fill="none" stroke="rgba(99, 200, 255, 0.5)"
+              stroke-width="2" stroke-linecap="round" style="animation-delay: 0.1s" />
+            <path d="M 56 90 Q 76 79 89 81" class="airflow-line" fill="none" stroke="rgba(99, 200, 255, 0.6)"
+              stroke-width="2" stroke-linecap="round" style="animation-delay: 0.2s" />
+            <path d="M 115 87 Q 140 85 165 90" class="airflow-line" fill="none" stroke="rgba(255, 150, 100, 0.4)"
+              stroke-width="2" stroke-linecap="round" />
+            <path d="M 117 84 Q 145 82 167 90" class="airflow-line" fill="none" stroke="rgba(255, 150, 100, 0.5)"
+              stroke-width="2" stroke-linecap="round" style="animation-delay: 0.1s" />
+            <path d="M 119 81 Q 150 79 169 90" class="airflow-line" fill="none" stroke="rgba(255, 150, 100, 0.6)"
+              stroke-width="2" stroke-linecap="round" style="animation-delay: 0.2s" />
+            <text x="45" y="115" fill="#63b3ed" font-size="10">Cool</text>
+            <text x="145" y="115" fill="#f6ad55" font-size="10">Exhaust</text>
+            <defs>
+              <radialGradient id="heatGradient">
+                <stop offset="0%" stop-color="#ef4444" />
+                <stop offset="50%" stop-color="#f97316" />
+                <stop offset="100%" stop-color="#eab308" />
+              </radialGradient>
+            </defs>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Battery Card -->
+      <div class="bento-card wide">
+        <div class="card-label">Unstoppable</div>
+        <h3 class="card-title font-display text-gradient">All-Day Power</h3>
+        <p class="card-desc">The most powerful battery ever in a pro laptop. Work without limits.</p>
+        <div class="card-visual">
+          <div class="battery-container">
+            <div class="battery-icon">
+              <div class="battery-body">
+                <div class="battery-fill" id="battery-fill"></div>
+              </div>
+              <div class="battery-tip"></div>
+            </div>
+            <div class="battery-text font-display text-gradient">22 hours</div>
+            <div class="battery-label">All-day battery life</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Performance Section -->
+  <section class="performance-section" id="performance-section">
+    <div class="performance-content">
+      <div class="section-header">
+        <h2 class="section-title font-display hero-text">
+          <span style="color: var(--white-90)">Speed.</span><br>
+          <span
+            style="background: linear-gradient(90deg, #818cf8, #a855f7, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Redefined.</span>
+        </h2>
+        <p class="section-subtitle">
+          The AETHER Pro delivers unprecedented performance across every task.
+          From intensive workflows to everyday use, experience speed like never before.
+        </p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value font-display text-gradient">2.8x</div>
+          <div class="stat-label">Faster CPU</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value font-display text-gradient">3.2x</div>
+          <div class="stat-label">GPU Power</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value font-display text-gradient">4.5x</div>
+          <div class="stat-label">ML Performance</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value font-display text-gradient">40%</div>
+          <div class="stat-label">More Efficient</div>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <div class="chart-legend">
+          <div class="legend-item">
+            <div class="legend-color" style="background: linear-gradient(90deg, #6366f1, #a855f7)"></div>
+            <span>AETHER Pro</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: rgba(255,255,255,0.3)"></div>
+            <span>Previous Gen</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: rgba(255,255,255,0.1)"></div>
+            <span>Competitor</span>
+          </div>
+        </div>
+
+        <div class="chart-category" data-aether="56" data-prev="30" data-comp="20">
+          <h4 class="category-title">CPU Performance</h4>
+          <div class="bar-row">
+            <span class="bar-label">AETHER Pro</span>
+            <div class="bar-track">
+              <div class="bar-fill aether"></div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Previous Gen</span>
+            <div class="bar-track">
+              <div class="bar-fill prev"></div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Competitor</span>
+            <div class="bar-track">
+              <div class="bar-fill competitor"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-category" data-aether="64" data-prev="36" data-comp="20">
+          <h4 class="category-title">GPU Rendering</h4>
+          <div class="bar-row">
+            <span class="bar-label">AETHER Pro</span>
+            <div class="bar-track">
+              <div class="bar-fill aether"></div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Previous Gen</span>
+            <div class="bar-track">
+              <div class="bar-fill prev"></div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Competitor</span>
+            <div class="bar-track">
+              <div class="bar-fill competitor"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-category" data-aether="90" data-prev="42" data-comp="20">
+          <h4 class="category-title">Machine Learning</h4>
+          <div class="bar-row">
+            <span class="bar-label">AETHER Pro</span>
+            <div class="bar-track">
+              <div class="bar-fill aether"></div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Previous Gen</span>
+            <div class="bar-track">
+              <div class="bar-fill prev"></div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Competitor</span>
+            <div class="bar-track">
+              <div class="bar-fill competitor"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Connectivity Section -->
+  <section class="connectivity-section" id="connectivity-section">
+    <div class="section-header">
+      <h2 class="section-title font-display hero-text">
+        <span style="color: var(--white-90)">Connected.</span><br>
+        <span style="color: var(--apple-gray)">To everything.</span>
+      </h2>
+      <p class="section-subtitle">
+        Industry-leading ports. Blazing-fast data transfer. Plug in and power through.
+      </p>
+    </div>
+
+    <div class="laptop-visual">
+      <svg class="laptop-svg" id="laptop-svg" viewBox="0 0 400 120" fill="none">
+        <!-- Base -->
+        <rect x="50" y="70" width="300" height="20" rx="3" fill="url(#laptopGrad)" />
+        <!-- Screen -->
+        <path d="M 80 70 L 100 20 L 320 20 L 340 70" fill="url(#screenGrad)" />
+        <path d="M 80 70 L 100 20 L 320 20 L 340 70" stroke="rgba(255,255,255,0.2)" stroke-width="1" fill="none" />
+        <!-- Ports -->
+        <rect x="55" y="75" width="15" height="10" rx="2" fill="rgba(99, 102, 241, 0.5)" />
+        <rect x="75" y="75" width="15" height="10" rx="2" fill="rgba(99, 102, 241, 0.5)" />
+        <rect x="95" y="75" width="12" height="10" rx="2" fill="rgba(99, 102, 241, 0.5)" />
+        <rect x="330" y="75" width="15" height="10" rx="2" fill="rgba(99, 102, 241, 0.5)" />
+        <defs>
+          <linearGradient id="laptopGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#3f3f46" />
+            <stop offset="100%" stop-color="#27272a" />
+          </linearGradient>
+          <linearGradient id="screenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#1f1f23" />
+            <stop offset="100%" stop-color="#0a0a0b" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <div class="port-labels">
+        <div class="port-label" id="port-1" style="left: 5%; top: 20%;">
+          <div class="port-line"></div>
+          <div class="port-info">
+            <div class="port-name">Thunderbolt 4</div>
+            <div class="port-desc">40Gb/s data transfer</div>
+          </div>
+        </div>
+        <div class="port-label" id="port-2" style="left: 15%; top: 45%;">
+          <div class="port-line"></div>
+          <div class="port-info">
+            <div class="port-name">HDMI 2.1</div>
+            <div class="port-desc">8K @ 60Hz output</div>
+          </div>
+        </div>
+        <div class="port-label" id="port-3" style="left: 22%; top: 70%;">
+          <div class="port-line"></div>
+          <div class="port-info">
+            <div class="port-name">SDXC</div>
+            <div class="port-desc">UHS-II support</div>
+          </div>
+        </div>
+        <div class="port-label" id="port-4" style="right: 5%; top: 35%;">
+          <div class="port-line" style="background: linear-gradient(270deg, #818cf8, transparent);"></div>
+          <div class="port-info">
+            <div class="port-name">MagSafe 3</div>
+            <div class="port-desc">Fast charging</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <h3 class="cta-title font-display text-gradient">Experience AETHER Pro</h3>
+      <p class="cta-subtitle">The future of professional computing is here.</p>
+      <div class="cta-buttons">
+        <button class="btn btn-primary">Buy Now</button>
+        <button class="btn btn-secondary">Learn More</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-column">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#">Overview</a></li>
+          <li><a href="#">Specifications</a></li>
+          <li><a href="#">Compare</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Service</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-logo font-display text-gradient">AETHER</div>
+      <div class="footer-copyright">© 2026 AETHER Technologies. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Configuration
+    const TOTAL_FRAMES = 200;
+    const FRAME_PATH = 'public/frames/ezgif-frame-';
+
+    // State
+    let images = [];
+    let imagesLoaded = false;
+    let currentFrame = 0;
+
+    // DOM Elements
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d');
+    const loadingScreen = document.getElementById('loading-screen');
+    const loadingBar = document.getElementById('loading-bar');
+    const loadingPercent = document.getElementById('loading-percent');
+    const heroContainer = document.getElementById('hero-container');
+
+    const overlayLift = document.getElementById('overlay-lift');
+    const overlayReveal = document.getElementById('overlay-reveal');
+    const overlayReassembly = document.getElementById('overlay-reassembly');
+
+    // Preload images
+    function preloadImages() {
+      let loaded = 0;
+
+      for (let i = 1; i <= TOTAL_FRAMES; i++) {
+        const img = new Image();
+        const frameNum = String(i).padStart(3, '0');
+        img.src = `${FRAME_PATH}${frameNum}.jpg`;
+
+        img.onload = () => {
+          loaded++;
+          const percent = Math.round((loaded / TOTAL_FRAMES) * 100);
+          loadingBar.style.width = percent + '%';
+          loadingPercent.textContent = percent;
+
+          if (loaded === TOTAL_FRAMES) {
+            imagesLoaded = true;
+            loadingScreen.classList.add('hidden');
+            renderFrame(0);
+            overlayLift.classList.add('visible');
+          }
+        };
+
+        img.onerror = () => {
+          loaded++;
+          console.warn(`Failed to load frame ${i}`);
+        };
+
+        images.push(img);
+      }
+    }
+
+    // Resize canvas
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      if (imagesLoaded) {
+        renderFrame(currentFrame);
+      }
+    }
+
+    // Render frame
+    function renderFrame(frameIndex) {
+      if (!images[frameIndex]) return;
+
+      currentFrame = frameIndex;
+      const img = images[frameIndex];
+
+      // Clear
+      ctx.fillStyle = '#0A0A0B';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Calculate aspect ratio fill
+      const imgAspect = img.width / img.height;
+      const canvasAspect = canvas.width / canvas.height;
+
+      let drawWidth, drawHeight, drawX, drawY;
+
+      if (imgAspect > canvasAspect) {
+        drawHeight = canvas.height;
+        drawWidth = drawHeight * imgAspect;
+        drawX = (canvas.width - drawWidth) / 2;
+        drawY = 0;
+      } else {
+        drawWidth = canvas.width;
+        drawHeight = drawWidth / imgAspect;
+        drawX = 0;
+        drawY = (canvas.height - drawHeight) / 2;
+      }
+
+      ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+    }
+
+    // Handle scroll
+    function handleScroll() {
+      if (!imagesLoaded) return;
+
+      const rect = heroContainer.getBoundingClientRect();
+      const scrollHeight = heroContainer.offsetHeight - window.innerHeight;
+      const scrolled = -rect.top;
+      const progress = Math.max(0, Math.min(1, scrolled / scrollHeight));
+
+      // Calculate frame
+      const frameIndex = Math.floor(progress * (TOTAL_FRAMES - 1));
+      renderFrame(frameIndex);
+
+      // Update overlays based on progress
+      // Phase 1: 0% - 25%
+      if (progress < 0.25) {
+        overlayLift.classList.add('visible');
+        overlayReveal.classList.remove('visible');
+        overlayReassembly.classList.remove('visible');
+      }
+      // Phase 2: 25% - 70%
+      else if (progress < 0.70) {
+        overlayLift.classList.remove('visible');
+        overlayReveal.classList.add('visible');
+        overlayReassembly.classList.remove('visible');
+      }
+      // Phase 3: 70% - 95%
+      else if (progress < 0.95) {
+        overlayLift.classList.remove('visible');
+        overlayReveal.classList.remove('visible');
+        overlayReassembly.classList.add('visible');
+      }
+      // Phase 4: 95% - 100% (fade out)
+      else {
+        overlayLift.classList.remove('visible');
+        overlayReveal.classList.remove('visible');
+        overlayReassembly.classList.remove('visible');
+      }
+
+      // Canvas scale and opacity for exit
+      if (progress > 0.92) {
+        const exitProgress = (progress - 0.92) / 0.08;
+        const scale = 1 - (exitProgress * 0.15);
+        const opacity = 1 - (exitProgress * 0.3);
+        canvas.style.transform = `scale(${scale})`;
+        canvas.style.opacity = opacity;
+      } else {
+        canvas.style.transform = 'scale(1)';
+        canvas.style.opacity = 1;
+      }
+    }
+
+    // Intersection Observer for scroll animations
+    function setupScrollAnimations() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+
+            // Special handling for display reveal
+            if (entry.target.id === 'display-visual') {
+              setTimeout(() => {
+                document.getElementById('display-bright').classList.add('revealed');
+              }, 500);
+            }
+
+            // Battery animation
+            if (entry.target.querySelector('#battery-fill')) {
+              setTimeout(() => {
+                document.getElementById('battery-fill').classList.add('animated');
+              }, 300);
+            }
+
+            // Chart bar animations
+            if (entry.target.classList.contains('chart-category')) {
+              const aether = entry.target.dataset.aether;
+              const prev = entry.target.dataset.prev;
+              const comp = entry.target.dataset.comp;
+
+              const bars = entry.target.querySelectorAll('.bar-fill');
+              setTimeout(() => {
+                bars[0].style.width = aether + '%';
+                bars[1].style.width = prev + '%';
+                bars[2].style.width = comp + '%';
+              }, 200);
+            }
+          }
+        });
+      }, { threshold: 0.2, rootMargin: '-50px' });
+
+      // Observe elements
+      document.querySelectorAll('.bento-card').forEach(el => observer.observe(el));
+      document.querySelectorAll('.stat-card').forEach(el => observer.observe(el));
+      document.querySelectorAll('.chart-category').forEach(el => observer.observe(el));
+      document.getElementById('display-visual') && observer.observe(document.getElementById('display-visual'));
+
+      // Laptop SVG
+      const laptopObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+
+            // Animate port labels
+            const ports = document.querySelectorAll('.port-label');
+            ports.forEach((port, i) => {
+              setTimeout(() => {
+                port.classList.add('visible');
+              }, 800 + (i * 150));
+            });
+          }
+        });
+      }, { threshold: 0.3 });
+
+      document.getElementById('laptop-svg') && laptopObserver.observe(document.getElementById('laptop-svg'));
+    }
+
+    // Initialize
+    window.addEventListener('load', () => {
+      resizeCanvas();
+      preloadImages();
+      setupScrollAnimations();
+    });
+
+    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+  </script>
+</body>
+
+</html>
